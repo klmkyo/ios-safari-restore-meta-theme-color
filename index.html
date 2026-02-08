@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>iOS Restore Meta Theme Color</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://colorjs.io/dist/color.global.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-markup.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-css.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-clike.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <main class="app">
+    <h1>iOS 26+ Safari Restore Meta Theme Color</h1>
+    <section id="compatibilityNotice" class="panel compatibility-panel">
+      <p class="intro small">
+        For best results, view this demo on iPhone Safari running iOS 26 or newer.
+      </p>
+    </section>
+
+    <section class="panel context-panel">
+      <details class="context-disclosure">
+        <summary class="context-summary">
+          <span class="context-title">
+            <i data-lucide="info" class="context-info" aria-hidden="true"></i>
+            <span>Context</span>
+          </span>
+          <i data-lucide="chevron-down" class="context-chevron" aria-hidden="true"></i>
+        </summary>
+        <div class="context-content-inner">
+          <p class="intro small">
+            In iOS 26, Safari no longer respects the
+            <code>&lt;meta name="theme-color"&gt;</code> behavior for browser UI coloring.
+          </p>
+          <p class="intro small">
+            Instead, Safari appears to use two heuristic modes for the top and bottom browser UI:
+            if it does not detect an element touching the top or bottom edge, that UI tends to stay
+            transparent-ish. If it does detect an element close to the edge, Safari tries to sample
+            its color and tint the browser UI to match.
+          </p>
+          <p class="intro small">
+            This likely helps visual continuity, so headers and bottom bars blend into Safari UI
+            without visible seams. The downside is that Safari decides the color for us, so direct
+            control is limited, and the heuristic used is imperfect. This demo shows a workaround
+            that lets you control that styling manually, by tricking the heuristic into picking a
+            color of our own choosing.
+          </p>
+          <p class="intro small">
+            This demo is inspired by
+            <a href="https://github.com/andesco/safari-color-tinting" target="_blank"
+              rel="noreferrer">andesco/safari-color-tinting</a>. Check it out for more information.
+            The page you're on now includes updated information regarding iOS 26.2, and a demo of hiding the elements
+            used to color
+            the browser UI, while still making them visible to the browser for the heuristic to
+            work.
+          </p>
+          <p class="intro small">
+            Last tested on iOS 26.2. Apple may change these heuristics in future updates, so
+            behavior can break or shift.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel bar-panel">
+      <div class="section-header">
+        <h2>Top Bar Styling</h2>
+        <label class="inline-toggle">
+          <span>Enable</span>
+          <input id="topEnabled" type="checkbox" checked />
+        </label>
+      </div>
+      <label class="row">
+        <span>Color</span>
+        <input id="topColor" type="color" value="#3b82f6" />
+      </label>
+      <label class="row">
+        <span>Rainbow</span>
+        <input id="topRainbow" type="checkbox" checked />
+      </label>
+      <label class="row">
+        <span>Discreet (mask hack)</span>
+        <input id="topInvisibleMask" type="checkbox" checked />
+      </label>
+      <details class="advanced-card advanced-disclosure">
+        <summary class="advanced-summary">
+          <h3>Advanced</h3>
+          <i data-lucide="chevron-down" class="advanced-chevron" aria-hidden="true"></i>
+        </summary>
+        <div class="advanced-content">
+          <label class="row advanced-row" for="topWidth">
+            <span>Width</span>
+            <span id="topWidthValue" class="value-pill">100%</span>
+          </label>
+          <input id="topWidth" class="heuristic-range range-width" type="range" min="70" max="100" step="1"
+            value="100" />
+          <label class="row advanced-row" for="topOffset">
+            <span>Offset From Top</span>
+            <span id="topOffsetValue" class="value-pill">0px</span>
+          </label>
+          <input id="topOffset" class="heuristic-range range-top-offset" type="range" min="0" max="12" step="1"
+            value="0" />
+          <label class="row advanced-row" for="topHeight">
+            <span>Height</span>
+            <span id="topHeightValue" class="value-pill">12px</span>
+          </label>
+          <input id="topHeight" class="heuristic-range range-height" type="range" min="1" max="30" step="1"
+            value="12" />
+          <p class="heuristic-note">
+            You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
+            UI. Yellow parts are where Safari is expected to no longer honor the color you set.
+          </p>
+          <p class="heuristic-note">
+            Tip: use <b>Rainbow</b> to detect breakpoints. If Safari stops honoring this bar, the browser UI, instead of
+            switching to the 'transparent mode',
+            will instead be stuck on the last remembered color, which is clearly visible if the color changes a lot.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel bar-panel">
+      <div class="section-header">
+        <h2>Bottom Bar Styling</h2>
+        <label class="inline-toggle">
+          <span>Enable</span>
+          <input id="bottomEnabled" type="checkbox" checked />
+        </label>
+      </div>
+      <label class="row">
+        <span>Color</span>
+        <input id="bottomColor" type="color" value="#22c55e" />
+      </label>
+      <label class="row">
+        <span>Rainbow</span>
+        <input id="bottomRainbow" type="checkbox" checked />
+      </label>
+      <label class="row">
+        <span>Discreet (mask hack)</span>
+        <input id="bottomInvisibleMask" type="checkbox" checked />
+      </label>
+      <details class="advanced-card advanced-disclosure">
+        <summary class="advanced-summary">
+          <h3>Advanced</h3>
+          <i data-lucide="chevron-down" class="advanced-chevron" aria-hidden="true"></i>
+        </summary>
+        <div class="advanced-content">
+          <label class="row advanced-row" for="bottomWidth">
+            <span>Width</span>
+            <span id="bottomWidthValue" class="value-pill">100%</span>
+          </label>
+          <input id="bottomWidth" class="heuristic-range range-width" type="range" min="70" max="100" step="1"
+            value="100" />
+          <label class="row advanced-row" for="bottomOffset">
+            <span>Offset From Bottom</span>
+            <span id="bottomOffsetValue" class="value-pill">0px</span>
+          </label>
+          <input id="bottomOffset" class="heuristic-range range-bottom-offset" type="range" min="0" max="12" step="1"
+            value="0" />
+          <label class="row advanced-row" for="bottomHeight">
+            <span>Height</span>
+            <span id="bottomHeightValue" class="value-pill">12px</span>
+          </label>
+          <input id="bottomHeight" class="heuristic-range range-height" type="range" min="1" max="30" step="1"
+            value="12" />
+          <p class="heuristic-note">
+            You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
+            UI. Yellow parts are where Safari is expected to no longer honor the color you set.
+          </p>
+          <p class="heuristic-note">
+            Tip: use <b>Rainbow</b> to detect breakpoints. If Safari stops honoring this bar, the browser UI, instead of
+            switching to the 'transparent mode',
+            will instead be stuck on the last remembered color, which is clearly visible if the color changes a lot.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel sample-panel">
+      <div class="snippet-header">
+        <h2>Sample Code</h2>
+        <button id="copyHtml" type="button">
+          <i data-lucide="copy" aria-hidden="true"></i>
+          <span class="copy-label">Copy</span>
+        </button>
+      </div>
+      <pre class="snippet"><code id="htmlSnippet" class="language-markup"></code></pre>
+    </section>
+  </main>
+
+  <div id="topBar" class="chrome-bar chrome-bar-top" aria-hidden="true"></div>
+  <div id="bottomBar" class="chrome-bar chrome-bar-bottom" aria-hidden="true"></div>
+
+</body>
+
+</html>
