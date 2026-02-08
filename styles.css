@@ -45,6 +45,29 @@ body {
   gap: 0.9rem;
 }
 
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.github-link {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+  color: hsl(var(--muted-foreground));
+  transition: color 120ms ease;
+}
+
+.github-link:hover {
+  color: hsl(var(--foreground));
+}
+
+.github-link svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 h1 {
   margin: 0;
   font-size: 1.875rem;
