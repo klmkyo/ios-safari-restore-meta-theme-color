@@ -108,20 +108,20 @@
             <span>Width</span>
             <span id="topWidthValue" class="value-pill">100%</span>
           </label>
-          <input id="topWidth" class="heuristic-range range-width" type="range" min="70" max="100" step="1"
-            value="100" />
+          <input id="topWidth" class="heuristic-range" type="range" min="70" max="100" step="1"
+            value="100" style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
           <label class="row advanced-row" for="topOffset">
             <span>Offset From Top</span>
             <span id="topOffsetValue" class="value-pill">0px</span>
           </label>
-          <input id="topOffset" class="heuristic-range range-top-offset" type="range" min="0" max="12" step="1"
-            value="0" />
+          <input id="topOffset" class="heuristic-range" type="range" min="0" max="12" step="1"
+            value="0" style="--min: 0; --max: 12; --threshold: 4; --c-start: hsl(var(--background)); --c-end: var(--c-warning);" />
           <label class="row advanced-row" for="topHeight">
             <span>Height</span>
             <span id="topHeightValue" class="value-pill">12px</span>
           </label>
-          <input id="topHeight" class="heuristic-range range-height" type="range" min="1" max="30" step="1"
-            value="12" />
+          <input id="topHeight" class="heuristic-range" type="range" min="1" max="30" step="1"
+            value="12" style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
           <p class="heuristic-note">
             You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
             UI. Yellow parts are where Safari is expected to no longer honor the color you set.
@@ -165,20 +165,20 @@
             <span>Width</span>
             <span id="bottomWidthValue" class="value-pill">100%</span>
           </label>
-          <input id="bottomWidth" class="heuristic-range range-width" type="range" min="70" max="100" step="1"
-            value="100" />
+          <input id="bottomWidth" class="heuristic-range" type="range" min="70" max="100" step="1"
+            value="100" style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
           <label class="row advanced-row" for="bottomOffset">
             <span>Offset From Bottom</span>
             <span id="bottomOffsetValue" class="value-pill">0px</span>
           </label>
-          <input id="bottomOffset" class="heuristic-range range-bottom-offset" type="range" min="0" max="12" step="1"
-            value="0" />
+          <input id="bottomOffset" class="heuristic-range" type="range" min="0" max="12" step="1"
+            value="0" style="--min: 0; --max: 12; --threshold: 3; --c-start: hsl(var(--background)); --c-end: var(--c-warning);" />
           <label class="row advanced-row" for="bottomHeight">
             <span>Height</span>
             <span id="bottomHeightValue" class="value-pill">12px</span>
           </label>
-          <input id="bottomHeight" class="heuristic-range range-height" type="range" min="1" max="30" step="1"
-            value="12" />
+          <input id="bottomHeight" class="heuristic-range" type="range" min="1" max="30" step="1"
+            value="12" style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
           <p class="heuristic-note">
             You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
             UI. Yellow parts are where Safari is expected to no longer honor the color you set.
