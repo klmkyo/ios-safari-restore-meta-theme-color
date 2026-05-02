@@ -4,34 +4,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
   <title>iOS Restore Meta Theme Color</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/400.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/500.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.5/600.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.2.8/400.css" />
   <link rel="stylesheet" href="styles.css" />
   <script defer src="https://colorjs.io/dist/color.global.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-markup.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-css.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-clike.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-javascript.min.js"></script>
   <script defer src="https://unpkg.com/lucide@latest"></script>
-  <script defer src="script.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "sugar-high": "https://esm.sh/sugar-high@0.9.3"
+      }
+    }
+  </script>
+  <script type="module" src="script.js"></script>
 </head>
 
 <body>
   <main class="app">
     <header class="app-header">
       <h1>iOS 26+ Safari Restore Meta Theme Color</h1>
-      <a href="https://github.com/klmkyo/ios-safari-restore-meta-theme-color" target="_blank" rel="noreferrer"
-        class="github-link" aria-label="GitHub Repository">
-        <i data-lucide="github"></i>
-      </a>
+      <a class="github-button" href="https://github.com/klmkyo/ios-safari-restore-meta-theme-color"
+        data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true"
+        aria-label="Star klmkyo/ios-safari-restore-meta-theme-color on GitHub">Star</a>
     </header>
     <section id="compatibilityNotice" class="panel compatibility-panel">
-      <p class="intro small">
-        For best results, view this demo on iPhone Safari running iOS 26 or newer.
-      </p>
+      <div class="compatibility-panel-body">
+        <i data-lucide="triangle-alert" class="compatibility-warning-icon" aria-hidden="true"></i>
+        <p id="compatibilityMessage" class="intro small"></p>
+      </div>
     </section>
 
     <section class="panel context-panel">
@@ -45,7 +50,7 @@
         </summary>
         <div class="context-content-inner">
           <p class="intro small">
-            In iOS 26, Safari no longer respects the
+            Since iOS 26, Safari no longer respects the
             <code>&lt;meta name="theme-color"&gt;</code> behavior for browser UI coloring.
           </p>
           <p class="intro small">
@@ -72,7 +77,7 @@
           </p>
           <p class="intro small">
             Last tested on iOS 26.2. Apple may change these heuristics in future updates, so
-            behavior can break or shift.
+            behavior can break or shift. This repository will be updated as needed.
           </p>
         </div>
       </details>
@@ -88,14 +93,14 @@
       </div>
       <label class="row">
         <span>Color</span>
-        <input id="topColor" type="color" value="#3b82f6" />
+        <input id="topColor" type="color" value="#737373" />
       </label>
       <label class="row">
         <span>Rainbow</span>
         <input id="topRainbow" type="checkbox" checked />
       </label>
       <label class="row">
-        <span>Discreet (mask hack)</span>
+        <span>Invisible (mask hack)</span>
         <input id="topInvisibleMask" type="checkbox" checked />
       </label>
       <details class="advanced-card advanced-disclosure">
@@ -108,20 +113,20 @@
             <span>Width</span>
             <span id="topWidthValue" class="value-pill">100%</span>
           </label>
-          <input id="topWidth" class="heuristic-range" type="range" min="70" max="100" step="1"
-            value="100" style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
+          <input id="topWidth" class="heuristic-range" type="range" min="70" max="100" step="1" value="100"
+            style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: var(--slider-background);" />
           <label class="row advanced-row" for="topOffset">
             <span>Offset From Top</span>
             <span id="topOffsetValue" class="value-pill">0px</span>
           </label>
-          <input id="topOffset" class="heuristic-range" type="range" min="0" max="12" step="1"
-            value="0" style="--min: 0; --max: 12; --threshold: 4; --c-start: hsl(var(--background)); --c-end: var(--c-warning);" />
+          <input id="topOffset" class="heuristic-range" type="range" min="0" max="12" step="1" value="0"
+            style="--min: 0; --max: 12; --threshold: 4; --c-start: var(--slider-background); --c-end: var(--c-warning);" />
           <label class="row advanced-row" for="topHeight">
             <span>Height</span>
             <span id="topHeightValue" class="value-pill">12px</span>
           </label>
-          <input id="topHeight" class="heuristic-range" type="range" min="1" max="30" step="1"
-            value="12" style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
+          <input id="topHeight" class="heuristic-range" type="range" min="1" max="30" step="1" value="12"
+            style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: var(--slider-background);" />
           <p class="heuristic-note">
             You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
             UI. Yellow parts are where Safari is expected to no longer honor the color you set.
@@ -145,14 +150,14 @@
       </div>
       <label class="row">
         <span>Color</span>
-        <input id="bottomColor" type="color" value="#22c55e" />
+        <input id="bottomColor" type="color" value="#525252" />
       </label>
       <label class="row">
         <span>Rainbow</span>
         <input id="bottomRainbow" type="checkbox" checked />
       </label>
       <label class="row">
-        <span>Discreet (mask hack)</span>
+        <span>Invisible (mask hack)</span>
         <input id="bottomInvisibleMask" type="checkbox" checked />
       </label>
       <details class="advanced-card advanced-disclosure">
@@ -165,20 +170,20 @@
             <span>Width</span>
             <span id="bottomWidthValue" class="value-pill">100%</span>
           </label>
-          <input id="bottomWidth" class="heuristic-range" type="range" min="70" max="100" step="1"
-            value="100" style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
+          <input id="bottomWidth" class="heuristic-range" type="range" min="70" max="100" step="1" value="100"
+            style="--min: 70; --max: 100; --threshold: 89; --c-start: var(--c-warning); --c-end: var(--slider-background);" />
           <label class="row advanced-row" for="bottomOffset">
             <span>Offset From Bottom</span>
             <span id="bottomOffsetValue" class="value-pill">0px</span>
           </label>
-          <input id="bottomOffset" class="heuristic-range" type="range" min="0" max="12" step="1"
-            value="0" style="--min: 0; --max: 12; --threshold: 3; --c-start: hsl(var(--background)); --c-end: var(--c-warning);" />
+          <input id="bottomOffset" class="heuristic-range" type="range" min="0" max="12" step="1" value="0"
+            style="--min: 0; --max: 12; --threshold: 3; --c-start: var(--slider-background); --c-end: var(--c-warning);" />
           <label class="row advanced-row" for="bottomHeight">
             <span>Height</span>
             <span id="bottomHeightValue" class="value-pill">12px</span>
           </label>
-          <input id="bottomHeight" class="heuristic-range" type="range" min="1" max="30" step="1"
-            value="12" style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: hsl(var(--background));" />
+          <input id="bottomHeight" class="heuristic-range" type="range" min="1" max="30" step="1" value="12"
+            style="--min: 1; --max: 30; --threshold: 11; --c-start: var(--c-warning); --c-end: var(--slider-background);" />
           <p class="heuristic-note">
             You can use the sliders above to play around with the Safari heuristics for picking the color of the browser
             UI. Yellow parts are where Safari is expected to no longer honor the color you set.
@@ -200,7 +205,7 @@
           <span class="copy-label">Copy</span>
         </button>
       </div>
-      <pre class="snippet"><code id="htmlSnippet" class="language-markup"></code></pre>
+      <pre class="snippet"><code id="htmlSnippet"></code></pre>
     </section>
   </main>
 
