@@ -55,10 +55,17 @@
           </p>
           <p class="intro small">
             Instead, Safari appears to use two heuristic modes for the top and bottom browser UI:
-            if it does not detect an element touching the top or bottom edge, that UI tends to stay
-            transparent-ish. If it does detect an element close to the edge, Safari tries to sample
-            its color and tint the browser UI to match.
           </p>
+          <ul class="intro small context-heuristic-list">
+            <li>
+              If it does not detect an element touching the top or bottom edge, browser UI tends to stay
+              transparent-ish.
+            </li>
+            <li>
+              If it does detect an element close to the edge, Safari tries to sample its color and tint
+              the browser UI to match.
+            </li>
+          </ul>
           <p class="intro small">
             This likely helps visual continuity, so headers and bottom bars blend into Safari UI
             without visible seams. The downside is that Safari decides the color for us, so direct
@@ -70,13 +77,14 @@
             This demo is inspired by
             <a href="https://github.com/andesco/safari-color-tinting" target="_blank"
               rel="noreferrer">andesco/safari-color-tinting</a>. Check it out for more information.
-            The page you're on now includes updated information regarding iOS 26.2, and a demo of hiding the elements
+            The page you're on now includes a demo of hiding the elements
             used to color
             the browser UI, while still making them visible to the browser for the heuristic to
             work.
           </p>
           <p class="intro small">
-            Last tested on iOS 26.2. Apple may change these heuristics in future updates, so
+            Intended for iOS 26+ Safari and manually verified on iOS 26.2 and 26.4.2. Apple may change these heuristics
+            in future updates, so
             behavior can break or shift. This repository will be updated as needed.
           </p>
         </div>

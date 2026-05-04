@@ -219,6 +219,20 @@ h3 {
   margin-top: 12px;
 }
 
+.context-content-inner ul.context-heuristic-list {
+  margin: 8px 0 0;
+  padding-left: 1.35rem;
+}
+
+.context-content-inner ul.context-heuristic-list li {
+  margin-top: 0.4em;
+  text-wrap: pretty;
+}
+
+.context-content-inner ul.context-heuristic-list+.intro {
+  margin-top: 12px;
+}
+
 .panel {
   background: hsl(var(--card));
   color: hsl(var(--card-foreground));
